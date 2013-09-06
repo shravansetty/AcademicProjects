@@ -1,0 +1,83 @@
+									Report: Association Rule Mining 
+									===============================
+Name: Shravan Pentamsetty 
+UF ID: 98625845
+email: shravansetty@gmail.com,shravansetty@ufl.edu,pshravan@cise.ufl.edu
+
+Setting up the Environment: 
+==========================
+1)Copied the given ojdbc jar file to the build path so that the jdbc related procedures for Oracle are imported.
+2)I imported the package java.sql.* to be able execute queries and access results sets.
+3)To setup the environment and make sure I can execute the queries, I used the sample java file given on the cise Oracle account creation page.
+4)Created a connection using DriverManager class and got the connection to the CISE database instance.
+5)Created a sample table and checked if I was able to access the result set and print the values.
+6)The environment was setup and I was ready to perform the actual tasks.
+
+Parsing the Input File:
+======================
+Wrote a method to read
+a)Username and password of the database instance.
+b)Input file and parse the input values for all the tasks
+
+Creating Output Files:
+======================
+Wrote a method to create the output files. If the output files are already present, they will be deleted and new files will be created.
+
+Cleanup and populate Database:
+=============================
+Wrote a PL/SQL Procedure to drop and create the tables items and trans.
+Inserting the data from the dat files into the Database:
+Wrote a method to read the items and trans dat files and insert the rows into corresponding tables using prepared statement and execute update.
+
+PL/SQL Procedures:
+=================
+1)Wrote a procedure to create all the candidate item sets without using cursors. I am generating the SQL's dynamically based on the given Frequent Item i/p size
+2)Wrote a procedure to prune the infrequent item sets using apriori rule. The frequent items sets are populated into the corresponding table.
+
+Task1:
+======
+1)Created a view using a group by statement to get the itemids and count.
+2)Joined the above-created view with the items table to get the itemnames of the corresponding item ids to print the same in the output file.
+
+Task2:
+=====
+1)Create a view similar to the one created in task1. Joined the view with the items table to get the itemids and the items with support are printed to the file.
+2)A new view,which contains frequent item sets of size 2 is created by self joining the view created in the above step. The item ids are fetched by joining the resulting view with the items table. The item sets and the support are printed to the file.
+
+Task3:
+=====
+1)Frequent Item sets of size 1 are being inserted using the query used in task1.
+2)For frequent item sets of higher sizes(i>1), a procedure candidate items is called to generate all the candidate items of size i using the frequent items sets of size i-1.
+3)Once the candidate frequent item sets are generated,a procedure frequent item sets is called.This procedure prunes the infrequent item sets using apriori and also populates the table with frequent item sets of size i.
+4)Steps 2 and 3 are repeated for size 2 to the given input size.
+5)After all the table are populated into the tables, the item sets along with the support are being printed to the file
+
+Task4:
+=====
+1)Inorder to mine the rules from the given data set, it is required to generate frequent item sets of the specified size. 
+2)To generate the frequent items sets of the user specified size, we use the procedures used in task3.
+3)Once the frequent item sets are populated, we need to mine the rules based on the given support and confidence.
+4)Rules of sizes two till the user specified size are generated.
+5)Frequent item set of each of the above sizes is taken and the possible subsets of each of the tuple in the table are generated.
+6)For each of the subset, the confidence is calculated using the following formula. Confidence(A->B) = SupportCount(AUB)/SupportCount(A).
+7)The confidence calculated is checked against the input confidence. If the calculated confidence satisfied the condition,print the rule to the file.
+
+Difficulties Faced:
+==================
+1)Setting up the environment was a major hurdle.
+2)Implementing apriori using pl/sql procedures.
+3)Generating subsets
+4)Maximum Cursors exceeded issue.
+5)Handling SQL Exceptions like when no data found.
+
+Learning:
+========
+1)Writing SQL Queries
+2)Creating,compiling,running PL/SQL Procedures.
+3)Java code specific to sql(OJDBC)
+4)Hands on experience on sqlplus
+5)Market Basket analysis
+6)Generation of Frequent Item sets and Candidate Item Sets
+7)Apriori Algorithm
+8)Though I haven't used cursors in my program, I have tried to execute them and learnt how to use a cursor.
+9)JAVA
