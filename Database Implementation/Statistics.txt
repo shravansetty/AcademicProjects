@@ -1,0 +1,12 @@
+
+BEGIN
+partsupp
+800000
+ps_suppkey 10000
+END
+
+BEGIN
+supplier
+800000
+s_suppkey 10000
+END
